@@ -91,9 +91,9 @@ func (b *basicTimeLogger) Fatal(output string) {
 }
 
 func NewBasicTimeLogger(fileLog, dirLog string, filePerms, dirPerms os.FileMode) (t TimeLogger, err error) {
-	temp := basicTimeLogger{fileLog, filePerms, dirLog, time.Now().Local(), nil, nil}
-	temp.setNewLogger()
 	err = os.MkdirAll(dirLog, dirPerms)
 	if err != nil { return nil, err }
+	temp := basicTimeLogger{fileLog, filePerms, dirLog, time.Now().Local(), nil, nil}
+	temp.setNewLogger()
 	return &temp, nil
 }
