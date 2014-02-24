@@ -60,7 +60,7 @@ func (b *basicTimeLogger) setNewLogger() {
 	b.logChan = make(chan logMessage)
 	go func(f closableWriter, toLog <- chan logMessage, quit <- chan bool) {
 		defer f.Close()
-		logger := log.New(f, "", log.LstdFlags | log.Lshortfile)
+		logger := log.New(f, "", log.LstdFlags)
 		for {
 			select {
 				case msg := <- toLog:
