@@ -102,3 +102,11 @@ func NewBasicTimeLogger(fileLog, dirLog string, filePerms, dirPerms os.FileMode)
 	temp.setNewLogger()
 	return &temp, nil
 }
+
+func NewBasicTimeLoggerFromConfig(filename string) (t TimeLogger, err error) {
+	config, err := LoadLoggingConfig(filename)
+	if err != nil {
+		return nil, err
+	}
+	return NewBasicTimeLogger(config.LogFileName, config.DirectoryLogPath, config.FilePermissions, config.FolderPermissions)
+}
