@@ -1,0 +1,14 @@
+# Template for a yaml configuration file for creating
+# a dailyLogger object
+
+# The base name for a log file (string)
+logfilename:
+
+# The head of the logging path (string)
+directorylogpath:
+
+# The permissions for files created by the logger (os.FileMode)
+filepermissions:
+
+# The permissions for folders created by the logger (os.FileMode)
+folderpermissions:
