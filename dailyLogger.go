@@ -5,12 +5,14 @@ import (
 	"os"
 	"strings"
 	"time"
+	"fmt"
 	"strconv"
 )
 
 const (
 	LOG_PRINTLN = iota
 	LOG_FATAL
+	LOG_PRINT
 )
 
 type DailyLogger struct {
@@ -77,6 +79,8 @@ func (b *DailyLogger) startLoggingLoop() {
 					logger.Println(string(msg.Message))
 				} else if msg.MsgType == LOG_FATAL {
 					logger.Fatal(string(msg.Message))
+				} else if msg.MsgType == LOG_PRINT {
+					logger.Print(string(msg.Message))
 				}
 			case newTime := <- newTimeChan:
 				file.Close()
@@ -122,6 +126,10 @@ func (b *DailyLogger) logMessage(msgType int, msg string) {
 
 func (b *DailyLogger) Println(output string) {
 	go b.logMessage(LOG_PRINTLN, output)
+}
+
+func (b *DailyLogger) Printf(format string, v ...interface{}) {
+	go b.logMessage(LOG_PRINT, fmt.Sprintf(format, v...))
 }
 
 func (b *DailyLogger) Fatal(output string) {
